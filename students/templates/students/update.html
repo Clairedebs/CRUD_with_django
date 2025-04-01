@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 p-4 mx-10 bg-zinc-100 shadow-lg rounded-xl border border-zinc-300 items-center">
+    <form action="" class="form" method="post">
+        {% csrf_token %}
+        <div class="text-center h3 justify-center p-3 uppercase border-b-2 bg-purple-500 text-white rounded-md font-mono">Update a student info</div>
+        <div class="form-group">
+            <label class="form-label" for="firstname">First Name</label>
+            <input class="form-control" type="text" name="firstname" id="fisrtname" class="form-control" value="{{ student.firstname }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="lastname">Last Name</label>
+            <input class="form-control" type="text" name="lastname" id="lastname" class="form-control" value="{{ student.lastname }}" required>
+        </div>
+        <div class="form-group">
+            <label for="dateNais" class="form-label"> Birth date </label>
+            <input type="date" name="dateNais" id="dateNais" class="form-control" value="{{ student.dateNais|date:'Y-m-d' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="sexe" class="form-label"> Sex </label>
+            <select name="sexe" id="sexe" class="form-control"  value="{{ student.sexe }}" required>
+                <option value="M" {% if student.sexe == 'M' %}selected{% endif %}>Male</option>
+                <option value="F" {% if student.sexe == 'F' %}selected{% endif %}>Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="level" class="form-label"> Level </label>
+            <select name="level" id="level" class="form-control" value="{{ student.level }}" required>
+                <option value="1" {% if student.level == '1' %}selected{% endif %}>1</option>
+                <option value="2" {% if student.level == '2' %}selected{% endif %}>2</option>
+                <option value="3" {% if student.level == '3' %}selected{% endif %}>3</option>
+                <option value="4" {% if student.level == '4' %}selected{% endif %}>4</option>
+                <option value="5" {% if student.level == '5' %}selected{% endif %}>5</option>
+            </select>
+        </div>
+        <div class="mt-2">
+            <button class="btn btn-primary" type="submit"> Save </button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

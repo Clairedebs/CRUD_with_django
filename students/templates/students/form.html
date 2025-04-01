@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 p-4 mr-3 ml-3 bg-zinc-50 shadow-lg rounded-xl border border-zinc-300 items-center">
+    <form action="" class="form" method="post" >
+        {% csrf_token %}
+        <div class="text-center h3 justify-center p-3 uppercase border-b-2 bg-purple-500 text-white rounded-md font-mono">
+            Add  a student
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="firstname">First Name</label>
+            <input class="form-control" type="text" name="firstname" id="fisrtname" class="form-control" value="{{ student.firstname }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="lastname">Last Name</label>
+            <input class="form-control" type="text" name="lastname" id="lastname" class="form-control" value="{{ student.lastname }}" required>
+        </div>
+        <div class="form-group">
+            <label for="dateNais" class="form-label"> Birth date </label>
+            <input type="date" name="dateNais" id="dateNais" class="form-control" value="{{ student.dateNais }}" required>
+        </div>
+        <div class="form-group">
+            <label for="sexe" class="form-label"> Sex </label>
+            <select name="sexe" id="sexe" class="form-control"  value="{{ student.sexe }}" required>
+                <option>M</option>
+                <option>F</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="level" class="form-label"> Level </label>
+            <select name="level" id="level" class="form-control" value="{{ student.level }}" required>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="mt-2">
+            <button class="btn btn-primary" type="submit"> Submit </button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
