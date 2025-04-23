@@ -18,12 +18,19 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from students.views import *
+from students.views import StudentViewset
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'students', StudentViewset, basename='students')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home,name='home'),
-    path('add/',add_student,name='addStudent'),
-    path("students/", include("students.urls")),
-    path('delete/<str:slug>/',delete_students,name='deleteStudent'),
-    path('update/<str:slug>/',update_students,name='updateStudent'),
+    # path('',home,name='home'),
+    # path('add/',add_student,name='addStudent'),
+    # path("students/", include("students.urls")),
+    # path('delete/<str:slug>/',delete_students,name='deleteStudent'),
+    # path('update/<str:slug>/',update_students,name='updateStudent'),
+    path('api-auth/', include('rest_framework.urls')),
+    path("", include(router.urls))
 ]
