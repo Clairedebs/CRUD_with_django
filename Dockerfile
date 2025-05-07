@@ -1,16 +1,32 @@
-FROM python:3.9-slim
+# Utiliser l'image Python Alpine comme base
+FROM python:alpine
 
-WORKDIR /code
+# Définir le répertoire de travail
+WORKDIR /app
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
+# Installer les dépendances système nécessaires
+RUN apk update && add --no-cache \
+    postgresql-libs \
+    postgresql-dev \
     gcc \
-    && rm -rf /var/lib/apt/lists/*
+    python3-dev \
+    musl-dev \
+    jpeg-dev \
+    zlib-dev \
+    libffi-dev\
+    build base
 
+# Copier les fichiers de requirements
 COPY constraints.txt .
-RUN pip install --no-cache-dir -r constraints.txt
 
+# Installer les dépendances Python
+RUN pip install -r constraints.txt
+
+# Copier le reste du projet
 COPY . .
+
+# Exposer le port
+EXPOSE 8000
+
+# Commande pour démarrer l'application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
